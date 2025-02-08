@@ -1,0 +1,111 @@
+﻿<Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:JSIM" Name="CAN_GRID"> 
+
+ <Grid.LayoutTransform>
+            <RotateTransform Angle="0" />
+        </Grid.LayoutTransform>
+
+  <Canvas>
+        <!-- Gehweg -->
+        <Rectangle Canvas.Left="0" Canvas.Top="300" Width="400" Height="100" Fill="Gray" />
+
+        <!-- Pflastersteine -->
+        <Canvas>
+            <!-- Erste Reihe -->
+            <Rectangle Canvas.Left="10" Canvas.Top="310" Width="40" Height="20" Fill="DarkGray" Stroke="Black" StrokeThickness="1" />
+            <Rectangle Canvas.Left="60" Canvas.Top="310" Width="40" Height="20" Fill="DarkGray" Stroke="Black" StrokeThickness="1" />
+            <Rectangle Canvas.Left="110" Canvas.Top="310" Width="40" Height="20" Fill="DarkGray" Stroke="Black" StrokeThickness="1" />
+            <Rectangle Canvas.Left="160" Canvas.Top="310" Width="40" Height="20" Fill="DarkGray" Stroke="Black" StrokeThickness="1" />
+            <Rectangle Canvas.Left="210" Canvas.Top="310" Width="40" Height="20" Fill="DarkGray" Stroke="Black" StrokeThickness="1" />
+            <Rectangle Canvas.Left="260" Canvas.Top="310" Width="40" Height="20" Fill="DarkGray" Stroke="Black" StrokeThickness="1" />
+            <Rectangle Canvas.Left="310" Canvas.Top="310" Width="40" Height="20" Fill="DarkGray" Stroke="Black" StrokeThickness="1" />
+            <!-- Zweite Reihe -->
+            <Rectangle Canvas.Left="35" Canvas.Top="335" Width="40" Height="20" Fill="DarkGray" Stroke="Black" StrokeThickness="1" />
+            <Rectangle Canvas.Left="85" Canvas.Top="335" Width="40" Height="20" Fill="DarkGray" Stroke="Black" StrokeThickness="1" />
+            <Rectangle Canvas.Left="135" Canvas.Top="335" Width="40" Height="20" Fill="DarkGray" Stroke="Black" StrokeThickness="1" />
+            <Rectangle Canvas.Left="185" Canvas.Top="335" Width="40" Height="20" Fill="DarkGray" Stroke="Black" StrokeThickness="1" />
+            <Rectangle Canvas.Left="235" Canvas.Top="335" Width="40" Height="20" Fill="DarkGray" Stroke="Black" StrokeThickness="1" />
+            <Rectangle Canvas.Left="285" Canvas.Top="335" Width="40" Height="20" Fill="DarkGray" Stroke="Black" StrokeThickness="1" />
+        </Canvas>
+
+        <!-- Gras -->
+        <Canvas>
+            <!-- Linker Rand -->
+            <Polyline Points="0,300 10,290 20,300 30,290 40,300 50,290 60,300" Fill="LimeGreen" Stroke="Green" StrokeThickness="1" />
+            <!-- Rechter Rand -->
+            <Polyline Points="340,300 350,290 360,300 370,290 380,300 390,290 400,300" Fill="LimeGreen" Stroke="Green" StrokeThickness="1" />
+        </Canvas>
+
+        <!-- Blumen -->
+        <Ellipse Canvas.Left="50" Canvas.Top="280" Width="8" Height="8" Fill="Red" />
+        <Ellipse Canvas.Left="55" Canvas.Top="285" Width="5" Height="5" Fill="Yellow" />
+        <Ellipse Canvas.Left="350" Canvas.Top="280" Width="8" Height="8" Fill="Pink" />
+        <Ellipse Canvas.Left="355" Canvas.Top="285" Width="5" Height="5" Fill="White" />
+
+        <!-- Baum -->
+        <Rectangle Canvas.Left="100" Canvas.Top="200" Width="20" Height="100" Fill="Brown" />
+        <Ellipse Canvas.Left="70" Canvas.Top="150" Width="80" Height="80" Fill="ForestGreen" />
+
+        <!-- Schatten der Laterne (dynamisch) -->
+        <Ellipse x:Name="ShadowEllipse" Canvas.Left="190" Canvas.Top="320" Width="80" Height="40" Fill="Black" Opacity="0.3" />
+
+        <!-- Laternenmast -->
+        <Rectangle Canvas.Left="190" Canvas.Top="50" Width="20" Height="250" Fill="Black" />
+
+        <!-- Querstrebe der Laterne -->
+        <Rectangle Canvas.Left="170" Canvas.Top="50" Width="60" Height="10" Fill="Black" />
+
+        <!-- Laternenkopf -->
+        <Ellipse Canvas.Left="170" Canvas.Top="30" Width="60" Height="40" Fill="Black" />
+
+        <!-- Ornamente (oben) -->
+        <Line X1="170" Y1="50" X2="160" Y2="30" Stroke="Black" StrokeThickness="2" />
+        <Line X1="230" Y1="50" X2="240" Y2="30" Stroke="Black" StrokeThickness="2" />
+        <Ellipse Canvas.Left="195" Canvas.Top="20" Width="10" Height="10" Fill="Black" />
+
+        <!-- Inneres der Laterne (leuchtende Kugel) -->
+        <Ellipse x:Name="LanternLight" Canvas.Left="180" Canvas.Top="35" Width="40" Height="30" Fill="Yellow">
+            <Ellipse.Effect>
+                <DropShadowEffect Color="Yellow" BlurRadius="20" ShadowDepth="0" Opacity="0.8" />
+            </Ellipse.Effect>
+            <Ellipse.Triggers>
+                <!-- Komplexe Animation für unregelmäßiges Flackern -->
+                <EventTrigger RoutedEvent="Ellipse.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard RepeatBehavior="Forever">
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="LanternLight">
+                                <DiscreteDoubleKeyFrame KeyTime="0:0:0.0" Value="1.0" />
+                                <DiscreteDoubleKeyFrame KeyTime="0:0:0.2" Value="0.8" />
+                                <DiscreteDoubleKeyFrame KeyTime="0:0:0.4" Value="0.5" />
+                                <DiscreteDoubleKeyFrame KeyTime="0:0:0.6" Value="1.0" />
+                                <DiscreteDoubleKeyFrame KeyTime="0:0:0.8" Value="0.7" />
+                                <DiscreteDoubleKeyFrame KeyTime="0:0:1.0" Value="0.6" />
+                                <DiscreteDoubleKeyFrame KeyTime="0:0:1.2" Value="1.0" />
+                            </DoubleAnimationUsingKeyFrames>
+
+                            <!-- Dynamische Schattenanpassung -->
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ShadowEllipse">
+                                <DiscreteDoubleKeyFrame KeyTime="0:0:0.0" Value="0.3" />
+                                <DiscreteDoubleKeyFrame KeyTime="0:0:0.2" Value="0.2" />
+                                <DiscreteDoubleKeyFrame KeyTime="0:0:0.4" Value="0.1" />
+                                <DiscreteDoubleKeyFrame KeyTime="0:0:0.6" Value="0.3" />
+                                <DiscreteDoubleKeyFrame KeyTime="0:0:0.8" Value="0.25" />
+                                <DiscreteDoubleKeyFrame KeyTime="0:0:1.0" Value="0.15" />
+                                <DiscreteDoubleKeyFrame KeyTime="0:0:1.2" Value="0.3" />
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Ellipse.Triggers>
+        </Ellipse>
+
+        <!-- Ornamente (unter der Lampe) -->
+        <Polyline Points="180,65 170,80 230,80 220,65" Stroke="Black" StrokeThickness="2" Fill="Transparent" />
+
+        <!-- Bodenplatte der Laterne -->
+        <Rectangle Canvas.Left="170" Canvas.Top="350" Width="60" Height="10" Fill="Black" />
+    </Canvas>
+</Grid>
