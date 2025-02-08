@@ -1,0 +1,16 @@
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: loki-sql-server
+    restart: always
+    environment:
+      SA_PASSWORD: "lokiloki01!!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql-data:/var/opt/mssql
+      - ./3:/backup
+volumes:
+  mssql-data:
+    driver: local
